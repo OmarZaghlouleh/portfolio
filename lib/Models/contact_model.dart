@@ -7,6 +7,6 @@ class ContactModel {
   ContactModel.fromJson(Map json) {
     name = json['name'] ?? "";
     url = json['url'] ?? "";
-    assetPath = "/icons/$name.svg";
+    assetPath = "web/icons/$name.svg";
   }
 }
