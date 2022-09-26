@@ -508,7 +508,7 @@ class HomeViewParts {
 
   Widget _getIconRowItem(
       {required String url,
-      required String title,
+      required Widget icon,
       required BuildContext context}) {
     return IconButton(
         onPressed: () {
@@ -516,12 +516,7 @@ class HomeViewParts {
             launchUrl(Uri.parse(url));
           } catch (e) {}
         },
-        icon: Expanded(
-          child: Text(
-            title,
-            style: Theme.of(context).textTheme.labelMedium,
-          ),
-        ));
+        icon:icon);
   }
 
   Widget _getFormRow(
@@ -591,7 +586,7 @@ class HomeViewParts {
         children: value.getContacts
             .map((e) => _getIconRowItem(
                 url: e.url,
-                title: e.name.replaceAll(e.name[0], e.name[0].toUpperCase()),
+                icon: SvgPicture.asset(e.assetPath),
                 context: context))
             .toList(),
       ),
