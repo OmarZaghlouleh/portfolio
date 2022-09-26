@@ -298,7 +298,7 @@ class _HomeViewState extends State<HomeView>
                     _getTitleText(title: AppStrings.contact),
                     Consumer<HomeViewModel>(
                       builder: (context, value, child) =>
-                          _homeViewParts.getContactContent(value),
+                          _homeViewParts.getContactContent(value, context),
                     )
                     // Column(
                     //   children:

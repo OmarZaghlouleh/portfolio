@@ -506,14 +506,20 @@ class HomeViewParts {
     return const SizedBox(height: AppSize.s15);
   }
 
-  Widget _getIconRowItem({required String url, required Widget icon}) {
+  Widget _getIconRowItem(
+      {required String url,
+      required String title,
+      required BuildContext context}) {
     return IconButton(
         onPressed: () {
           try {
             launchUrl(Uri.parse(url));
           } catch (e) {}
         },
-        icon: icon);
+        icon: Text(
+          title,
+          style: Theme.of(context).textTheme.labelMedium,
+        ));
   }
 
   Widget _getFormRow(
@@ -565,7 +571,7 @@ class HomeViewParts {
     );
   }
 
-  Widget getContactContent(HomeViewModel value) {
+  Widget getContactContent(HomeViewModel value, BuildContext context) {
     return VisibilityDetector(
       key: _contactVisibiltyKey,
       onVisibilityChanged: (info) {
@@ -582,7 +588,9 @@ class HomeViewParts {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: value.getContacts
             .map((e) => _getIconRowItem(
-                url: e.url, icon: SvgPicture.asset(e.assetPath)))
+                url: e.url,
+                title: e.name.replaceAll(e.name[0], e.name[0].toUpperCase()),
+                context: context))
             .toList(),
       ),
     );
