@@ -516,9 +516,11 @@ class HomeViewParts {
             launchUrl(Uri.parse(url));
           } catch (e) {}
         },
-        icon: Text(
-          title,
-          style: Theme.of(context).textTheme.labelMedium,
+        icon: Expanded(
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.labelMedium,
+          ),
         ));
   }
 
