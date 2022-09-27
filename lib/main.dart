@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:portfolio/Data%20Managers/api_manager.dart';
 import 'package:portfolio/Data%20Managers/routes_manager.dart';
+import 'package:portfolio/Data%20Managers/strings_manager.dart';
 import 'package:portfolio/Data%20Managers/theme_manager.dart';
 import 'package:portfolio/View%20Models/home_view_model.dart';
 import 'package:portfolio/View%20Models/splash_view_model.dart';
@@ -29,6 +30,7 @@ class MyPortfolio extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => HomeViewModel())
       ],
       child: MaterialApp(
+        title: AppStrings.title,
         debugShowCheckedModeBanner: false,
         initialRoute: RoutesName.splash,
         onGenerateRoute: RoutesGenerator.getRoute,

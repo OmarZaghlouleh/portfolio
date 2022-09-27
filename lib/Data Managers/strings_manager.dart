@@ -9,6 +9,7 @@ class AppStrings {
   static const String infoId = "szDJkW0jJV";
 
   static const String name = "Omar Zaghlouleh";
+    static const String title = "Omar Zaghlouleh - Portfolio";
   static const String flutterDev = "Flutter Developer";
   static const String portfolio = "Portfolio";
   static const String undefinedError = "404 Not Found";
