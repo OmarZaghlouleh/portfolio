@@ -124,7 +124,7 @@ class HomeViewParts {
                                   _getFormRow(
                                       title1: AppStrings.educationTitle,
                                       title2: value.getPersonalInfo.education,
-                                      icon: SvgPicture.asset(
+                                      icon: Image.asset(
                                         AssetsManager.educationIcon,
                                         width: AppSize.s25,
                                         height: AppSize.s25,
@@ -185,7 +185,7 @@ class HomeViewParts {
                           _getFormRowFotPortrait(
                               title1: AppStrings.educationTitle,
                               title2: value.getPersonalInfo.education,
-                              icon: SvgPicture.asset(
+                              icon: Image.asset(
                                 AssetsManager.educationIcon,
                                 width: AppSize.s25,
                                 height: AppSize.s25,
@@ -516,7 +516,7 @@ class HomeViewParts {
             launchUrl(Uri.parse(url));
           } catch (e) {}
         },
-        icon:icon);
+        icon: icon);
   }
 
   Widget _getFormRow(
@@ -585,9 +585,7 @@ class HomeViewParts {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: value.getContacts
             .map((e) => _getIconRowItem(
-                url: e.url,
-                icon: SvgPicture.asset(e.assetPath),
-                context: context))
+                url: e.url, icon: Image.asset(e.assetPath), context: context))
             .toList(),
       ),
     );
@@ -690,89 +688,89 @@ class HomeDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: AppHeights.h250,
-      child: Drawer(
-        backgroundColor:
-            ColorsManager.primaryColor.withOpacity(OpacityValues.op0_7),
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(AppSize.s15),
-                bottomRight: Radius.circular(AppSize.s15))),
-        child: LayoutBuilder(
-          builder: (p0, p1) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Consumer<HomeViewModel>(
-                builder: (context, value, child) => AppbarAction(
-                    fontSize: value.getAboutFontSize,
-                    onPressed: () => homeViewFunctions.pressAboutFunction(
-                        scrollController, value),
-                    onHover: () => homeViewFunctions.hoverAboutFunction(value),
-                    title: AppStrings.about),
-              ),
-              Consumer<HomeViewModel>(
-                  builder: (context, value, child) => InkWell(
-                      onTap: () {},
-                      onHover: (isHovered) {
-                        value.setProjectsFontSize();
-                      },
-                      child: ExpansionTile(
-                        collapsedIconColor: ColorsManager.greyColor,
-                        iconColor: ColorsManager.whiteColor,
-                        tilePadding: const EdgeInsets.all(AppPadding.p8),
-                        title: AnimatedSize(
-                          duration:
-                              const Duration(milliseconds: AppDurations.dm300),
-                          curve: Curves.linear,
-                          child: Padding(
-                            padding: const EdgeInsets.all(AppPadding.p6),
-                            child: Text(
-                              AppStrings.projects,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelMedium!
-                                  .copyWith(
-                                      fontSize: value.getProjectsFontSize),
-                            ),
+    return LayoutBuilder(
+      builder: (p0, p1) => Container(
+        width: p1.maxWidth * 0.5,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(AppSize.s15),
+            bottomRight: Radius.circular(AppSize.s15),
+          ),
+          color: ColorsManager.primaryColor.withOpacity(OpacityValues.op0_7),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Consumer<HomeViewModel>(
+              builder: (context, value, child) => AppbarAction(
+                  fontSize: value.getAboutFontSize,
+                  onPressed: () => homeViewFunctions.pressAboutFunction(
+                      scrollController, value),
+                  onHover: () => homeViewFunctions.hoverAboutFunction(value),
+                  title: AppStrings.about),
+            ),
+            Consumer<HomeViewModel>(
+                builder: (context, value, child) => InkWell(
+                    onTap: () {},
+                    onHover: (isHovered) {
+                      value.setProjectsFontSize();
+                    },
+                    child: ExpansionTile(
+                      collapsedIconColor: ColorsManager.greyColor,
+                      iconColor: ColorsManager.whiteColor,
+                      tilePadding: const EdgeInsets.all(AppPadding.p8),
+                      title: AnimatedSize(
+                        duration:
+                            const Duration(milliseconds: AppDurations.dm300),
+                        curve: Curves.linear,
+                        child: Padding(
+                          padding: const EdgeInsets.all(AppPadding.p6),
+                          child: Text(
+                            AppStrings.projects,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium!
+                                .copyWith(fontSize: value.getProjectsFontSize),
                           ),
                         ),
-                        children: value.getProjects
-                            .map(
-                              (e) => TextButton(
-                                onPressed: () {
-                                  homeViewFunctions.selectProjectFunction(
-                                      scrollController, value, e.name);
-                                },
-                                child: Text(
-                                  e.name,
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium,
-                                ),
+                      ),
+                      children: value.getProjects
+                          .map(
+                            (e) => TextButton(
+                              onPressed: () {
+                                homeViewFunctions.selectProjectFunction(
+                                    scrollController, value, e.name);
+                              },
+                              child: Text(
+                                e.name,
+                                style: Theme.of(context).textTheme.labelMedium,
                               ),
-                            )
-                            .toList(),
-                      ))),
-              Consumer<HomeViewModel>(
-                builder: (context, value, child) => AppbarAction(
-                    fontSize: value.getMusicFontSize,
-                    onPressed: () => homeViewFunctions.pressMusicFunction(
-                        scrollController, value, musicKey),
-                    onHover: () => homeViewFunctions.hoverMusicFunction(value),
-                    title: AppStrings.music),
-              ),
-              Consumer<HomeViewModel>(
-                builder: (context, value, child) => AppbarAction(
-                    fontSize: value.getContactFontSize,
-                    onPressed: () => homeViewFunctions.pressContactFunction(
-                        scrollController, value),
-                    onHover: () =>
-                        homeViewFunctions.hoverContactFunction(value),
-                    title: AppStrings.contact),
-              ),
-              Consumer<HomeViewModel>(
-                builder: (context, value, child) => Center(
+                            ),
+                          )
+                          .toList(),
+                    ))),
+            Consumer<HomeViewModel>(
+              builder: (context, value, child) => AppbarAction(
+                  fontSize: value.getMusicFontSize,
+                  onPressed: () => homeViewFunctions.pressMusicFunction(
+                      scrollController, value, musicKey),
+                  onHover: () => homeViewFunctions.hoverMusicFunction(value),
+                  title: AppStrings.music),
+            ),
+            Consumer<HomeViewModel>(
+              builder: (context, value, child) => AppbarAction(
+                  fontSize: value.getContactFontSize,
+                  onPressed: () => homeViewFunctions.pressContactFunction(
+                      scrollController, value),
+                  onHover: () => homeViewFunctions.hoverContactFunction(value),
+                  title: AppStrings.contact),
+            ),
+            Consumer<HomeViewModel>(
+              builder: (context, value, child) => Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(AppPadding.p8),
                   child: InkWell(
                     onTap: () async {
                       if (!value.getIsLiked)
@@ -793,8 +791,8 @@ class HomeDrawer extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
