@@ -654,17 +654,17 @@ class _AutoPageViewState extends State<AutoPageView> {
           child: PageView(
             controller: _scrollController,
             children: widget.projectsModel.images
-                .map(
-                  (e) => Image(
-                    loadingBuilder: (context, child, loadingProgress) =>
-                        LinearProgressIndicator(
-                            backgroundColor: widget.loadingColor,
-                            color: ColorsManager.blackColor
-                                .withOpacity(OpacityValues.op0_2)),
-                    fit: BoxFit.fill,
-                    image: NetworkImage(e),
-                  ),
-                )
+                .map((e) => HtmlElementView(viewType: e)
+                    // Image(
+                    //   loadingBuilder: (context, child, loadingProgress) =>
+                    //       LinearProgressIndicator(
+                    //           backgroundColor: widget.loadingColor,
+                    //           color: ColorsManager.blackColor
+                    //               .withOpacity(OpacityValues.op0_2)),
+                    //   fit: BoxFit.fill,
+                    //   image: NetworkImage(e),
+                    // ),
+                    )
                 .toList(),
           ),
         ),
