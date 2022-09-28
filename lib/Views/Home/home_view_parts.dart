@@ -659,10 +659,13 @@ class _AutoPageViewState extends State<AutoPageView> {
                       //HtmlElementView(viewType: e)
                       Image(
                     loadingBuilder: (context, child, loadingProgress) =>
-                        LinearProgressIndicator(
-                            backgroundColor: widget.loadingColor,
-                            color: ColorsManager.blackColor
-                                .withOpacity(OpacityValues.op0_2)),
+                        loadingProgress == null
+                            ? child
+                            : LinearProgressIndicator(
+                                backgroundColor: widget.loadingColor,
+                                color: ColorsManager.blackColor
+                                    .withOpacity(OpacityValues.op0_2),
+                              ),
                     fit: BoxFit.fill,
                     image: NetworkImage(e),
                   ),

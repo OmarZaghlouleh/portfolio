@@ -51,6 +51,7 @@ dependencies:
   pod_player: ^0.1.0
   platform_device_id: ^1.0.1
   get_mac_address: ^0.0.2
+  lottie: ^1.4.3
 
 dev_dependencies:
   flutter_test:
