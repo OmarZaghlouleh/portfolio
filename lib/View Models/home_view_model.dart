@@ -1,10 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:get_mac_address/get_mac_address.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:platform_device_id/platform_device_id.dart';
@@ -196,13 +194,13 @@ class HomeViewModel with ChangeNotifier {
 
     macAddress = await getMac();
 
-    macAddress = macAddress;
     QueryBuilder<ParseObject> queryTodo =
         QueryBuilder<ParseObject>(ParseObject('Info'));
     final ParseResponse apiResponse = await queryTodo.query();
 
     if (apiResponse.success && apiResponse.results != null) {
       final data = apiResponse.results!.first['macs'] as List;
+      log("IDs: $data");
       if (!data.contains(macAddress)) {
         var todo = ParseObject('Info')
           ..objectId = AppStrings.infoId
@@ -279,7 +277,8 @@ class HomeViewModel with ChangeNotifier {
     String macAddress;
     try {
       macAddress =
-          await GetMacAddress().getMacAddress() ?? 'Unknown mac address';
+          await PlatformDeviceId.getDeviceId ?? AppStrings.undefinedError;
+      log("Device ID: $macAddress");
     } on PlatformException {
       macAddress = 'Failed to get mac address.';
     }

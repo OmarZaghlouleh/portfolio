@@ -4,7 +4,6 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus_windows
-  get_mac_address
   platform_device_id_windows
   url_launcher_windows
 )

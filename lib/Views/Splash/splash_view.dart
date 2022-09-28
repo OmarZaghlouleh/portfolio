@@ -112,6 +112,7 @@ class _SplashViewState extends State<SplashView>
                                 await Provider.of<HomeViewModel>(context,
                                         listen: false)
                                     .checkLike();
+
                                 await Provider.of<HomeViewModel>(context,
                                         listen: false)
                                     .setProjects()

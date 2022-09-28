@@ -1,7 +1,10 @@
+import 'dart:math';
+
 class AppStrings {
   static const String mileJourneyId = "PTpaErEXFiw";
   static const String mileJourneyUrl =
       "https://www.youtube.com/watch?v=PTpaErEXFiw";
+
   static const String mileJourney = "Mile Journey";
   static const String mileJourneyProject = "Mile Journey Music Project";
   static const String music = "Music";
@@ -9,7 +12,7 @@ class AppStrings {
   static const String infoId = "szDJkW0jJV";
 
   static const String name = "Omar Zaghlouleh";
-    static const String title = "Omar Zaghlouleh - Portfolio";
+  static const String title = "Omar Zaghlouleh - Portfolio";
   static const String flutterDev = "Flutter Developer";
   static const String portfolio = "Portfolio";
   static const String undefinedError = "404 Not Found";
@@ -25,4 +28,11 @@ class AppStrings {
   static const String emailTitle = "Email: ";
   static const String featuresTitle = "Features: ";
   static const String upComingFeaturesTitle = "Upcoming Features: ";
+
+  static String mileJourneyDataSourceURL = "";
+
+  static void setDataSourceUrl(String url) {
+    mileJourneyDataSourceURL = url;
+    print(url);
+  }
 }

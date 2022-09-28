@@ -10,12 +10,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:pod_player/pod_player.dart';
 import 'package:portfolio/Data%20Managers/enums_manager.dart';
 import 'package:portfolio/Models/project_model.dart';
 import 'package:portfolio/Views/Home/home_view_functions.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../Data Managers/assets_manager.dart';
@@ -24,8 +24,6 @@ import '../../Data Managers/fonts_manager.dart';
 import '../../Data Managers/strings_manager.dart';
 import '../../Data Managers/values_manager.dart';
 import '../../View Models/home_view_model.dart';
-
-import '../../Data Managers/web_view.dart';
 
 class HomeViewParts {
   BuildContext _context;
@@ -864,6 +862,8 @@ class MileJourneyVideo extends StatefulWidget {
 
 class _MileJourneyVideoState extends State<MileJourneyVideo> {
   late final VideoPlayerController _controller;
+  bool _isHovered = true;
+  IconData _icon = Icons.play_arrow_rounded;
 
   @override
   void initState() {
@@ -872,9 +872,19 @@ class _MileJourneyVideoState extends State<MileJourneyVideo> {
     _controller = VideoPlayerController.network(
         'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
       ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {});
       });
+
+    _controller.addListener(() {
+      if (!_controller.value.isPlaying) {
+        setState(() {
+          _icon = Icons.play_arrow_rounded;
+          _isHovered = true;
+        });
+      } else {
+        _icon = Icons.pause_rounded;
+      }
+    });
 
     super.initState();
   }
@@ -888,24 +898,85 @@ class _MileJourneyVideoState extends State<MileJourneyVideo> {
   @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
-        onVisibilityChanged: (info) {
-          if (int.tryParse(info.visibleFraction.toString()) ==
-                  AppFractions.f1 ||
-              info.visibleFraction > AppFractions.f0_2) {
-            widget.value.setIsMusicVisible(true);
-            widget.value.setCustomMusicFontSize(FontsSize.s20);
-          } else {
-            widget.value.setIsMusicVisible(false);
-            widget.value.setCustomMusicFontSize(FontsSize.s15);
-          }
+      onVisibilityChanged: (info) {
+        if (int.tryParse(info.visibleFraction.toString()) == AppFractions.f1 ||
+            info.visibleFraction > AppFractions.f0_2) {
+          widget.value.setIsMusicVisible(true);
+          widget.value.setCustomMusicFontSize(FontsSize.s20);
+        } else {
+          widget.value.setIsMusicVisible(false);
+          widget.value.setCustomMusicFontSize(FontsSize.s15);
+        }
+      },
+      key: widget.musicVisibiltyKey,
+      child: InkWell(
+        key: widget.widgetKey,
+        onTap: () {},
+        onHover: (hover) {
+          if (_controller.value.isPlaying)
+            setState(() {
+              _isHovered = hover;
+            });
         },
-        key: widget.musicVisibiltyKey,
-        child: SizedBox(
-          key: widget.widgetKey,
-          height: AppHeights.h500,
-          child: ClipRRect(
-              borderRadius: BorderRadius.circular(AppSize.s15),
-              child: VideoPlayer(_controller)),
-        ));
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Column(
+              children: [
+                SizedBox(
+                  height: AppHeights.h500,
+                  // aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(
+                    _controller,
+                  ),
+                ),
+                VideoProgressIndicator(
+                  _controller,
+                  allowScrubbing: true,
+                  colors: const VideoProgressColors(
+                      playedColor: ColorsManager.accentColor),
+                )
+              ],
+            ),
+            if (_isHovered)
+              SizedBox(
+                height: AppHeights.h500,
+                // aspectRatio: _controller.value.aspectRatio,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: ColorsManager.blackColor
+                        .withOpacity(OpacityValues.op0_3),
+                  ),
+                  //height: AppHeights.h500,
+                  child: Center(
+                    child: IconButton(
+                      onPressed: () {
+                        if (_controller.value.isPlaying) {
+                          _controller.pause();
+                          setState(() {
+                            _isHovered = true;
+                            //_icon = Icons.play_arrow_rounded;
+                          });
+                        } else {
+                          _controller.play();
+                          setState(() {
+                            _isHovered = false;
+                            //_icon = Icons.pause_rounded;
+                          });
+                        }
+                      },
+                      icon: Icon(
+                        _icon,
+                        size: AppSize.s20,
+                        color: ColorsManager.primaryColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -95,7 +95,7 @@ class _HomeViewState extends State<HomeView>
                 children: [
                   AnimatedOpacity(
                     duration: const Duration(milliseconds: AppDurations.dm300),
-                    opacity: p1.maxWidth <= 650
+                    opacity: p1.maxWidth <= 700
                         ? OpacityValues.op1
                         : OpacityValues.op0,
                     child: IconButton(
@@ -146,7 +146,7 @@ class _HomeViewState extends State<HomeView>
                               ),
                             ),
                           )),
-                  if (p1.maxWidth > 650)
+                  if (p1.maxWidth > 700)
                     Padding(
                       padding: const EdgeInsets.all(AppPadding.p8),
                       child: Row(
