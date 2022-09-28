@@ -18,6 +18,7 @@ import 'package:portfolio/Views/Home/home_view_functions.dart';
 import 'package:portfolio/Views/Home/home_view_parts.dart';
 import 'package:positioned_tap_detector_2/positioned_tap_detector_2.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeView extends StatefulWidget {
   HomeView({super.key});
@@ -288,6 +289,9 @@ class _HomeViewState extends State<HomeView>
                     _getTitleText(title: AppStrings.flutterProjects),
                     _homeViewParts.getProjectsPart(),
                     _getTitleText(title: AppStrings.mileJourneyProject),
+                    _getLinkText(
+                        title: AppStrings.mileJourneyYoutubeUrl +
+                            AppStrings.mileJourneyUrl),
                     Consumer<HomeViewModel>(
                       builder: (context, value, child) => MileJourneyVideo(
                         musicVisibiltyKey: _musicVisibiltyKey,
@@ -321,6 +325,21 @@ class _HomeViewState extends State<HomeView>
       child: Text(
         title,
         style: Theme.of(context).textTheme.headline2,
+      ),
+    );
+  }
+
+  Widget _getLinkText({required String title}) {
+    return Padding(
+      padding: const EdgeInsets.all(AppPadding.p25),
+      child: InkWell(
+        onTap: () {
+          launchUrl(Uri.parse(AppStrings.mileJourneyUrl));
+        },
+        child: Text(
+          title,
+          style: Theme.of(context).textTheme.headline2,
+        ),
       ),
     );
   }
