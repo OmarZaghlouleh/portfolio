@@ -171,14 +171,14 @@ class HomeViewModel with ChangeNotifier {
   Future<void> upload() async {
     try {
       ImagePicker _picker = ImagePicker();
-      final picked = await _picker.pickImage(source: ImageSource.gallery);
+      final picked = await _picker.pickVideo(source: ImageSource.gallery);
       if (picked != null) {
         ParseFileBase? parseFile;
 
         if (kIsWeb) {
           //Flutter Web
           parseFile = ParseWebFile(await picked.readAsBytes(),
-              name: 'image.jpg'); //Name for file is required
+              name: 'video.mp4'); //Name for file is required
         } else {
           //Flutter Mobile/Desktop
           parseFile = ParseFile(File(picked.path));

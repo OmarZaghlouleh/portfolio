@@ -1,11 +1,15 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 
-import 'dart:async';
-import 'dart:developer';
+// Copyright 2013 The Flutter Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
-import 'package:auto_size_text/auto_size_text.dart';
+// ignore_for_file: public_member_api_docs
+
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'dart:developer';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:pod_player/pod_player.dart';
 import 'package:portfolio/Data%20Managers/enums_manager.dart';
 import 'package:portfolio/Models/project_model.dart';
@@ -20,6 +24,8 @@ import '../../Data Managers/fonts_manager.dart';
 import '../../Data Managers/strings_manager.dart';
 import '../../Data Managers/values_manager.dart';
 import '../../View Models/home_view_model.dart';
+
+import '../../Data Managers/web_view.dart';
 
 class HomeViewParts {
   BuildContext _context;
@@ -558,9 +564,9 @@ class HomeViewParts {
           style: Theme.of(_context).textTheme.subtitle2,
         ),
         Expanded(
-          child: AutoSizeText(
+          child: Text(
             title2,
-            maxLines: 2,
+            maxLines: 5,
             style: Theme.of(_context).textTheme.labelMedium,
           ),
         )
@@ -857,17 +863,18 @@ class MileJourneyVideo extends StatefulWidget {
 }
 
 class _MileJourneyVideoState extends State<MileJourneyVideo> {
-  late final PodPlayerController _controller;
+  late final VideoPlayerController _controller;
 
   @override
   void initState() {
     log("Video");
 
-    _controller = PodPlayerController(
-      podPlayerConfig: const PodPlayerConfig(
-          autoPlay: false, videoQualityPriority: [240, 360, 480, 720, 1080]),
-      playVideoFrom: PlayVideoFrom.youtube(AppStrings.mileJourneyUrl),
-    )..initialise();
+    _controller = VideoPlayerController.network(
+        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
+      ..initialize().then((_) {
+        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+        setState(() {});
+      });
 
     super.initState();
   }
@@ -881,27 +888,24 @@ class _MileJourneyVideoState extends State<MileJourneyVideo> {
   @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
-      onVisibilityChanged: (info) {
-        if (int.tryParse(info.visibleFraction.toString()) == AppFractions.f1 ||
-            info.visibleFraction > AppFractions.f0_2) {
-          widget.value.setIsMusicVisible(true);
-          widget.value.setCustomMusicFontSize(FontsSize.s20);
-        } else {
-          widget.value.setIsMusicVisible(false);
-          widget.value.setCustomMusicFontSize(FontsSize.s15);
-        }
-      },
-      key: widget.musicVisibiltyKey,
-      child: SizedBox(
-        key: widget.widgetKey,
-        height: AppHeights.h500,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(AppSize.s15),
-          child: PodVideoPlayer(
-            controller: _controller,
-          ),
-        ),
-      ),
-    );
+        onVisibilityChanged: (info) {
+          if (int.tryParse(info.visibleFraction.toString()) ==
+                  AppFractions.f1 ||
+              info.visibleFraction > AppFractions.f0_2) {
+            widget.value.setIsMusicVisible(true);
+            widget.value.setCustomMusicFontSize(FontsSize.s20);
+          } else {
+            widget.value.setIsMusicVisible(false);
+            widget.value.setCustomMusicFontSize(FontsSize.s15);
+          }
+        },
+        key: widget.musicVisibiltyKey,
+        child: SizedBox(
+          key: widget.widgetKey,
+          height: AppHeights.h500,
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(AppSize.s15),
+              child: VideoPlayer(_controller)),
+        ));
   }
 }

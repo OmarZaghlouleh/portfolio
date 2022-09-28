@@ -52,6 +52,8 @@ dependencies:
   platform_device_id: ^1.0.1
   get_mac_address: ^0.0.2
   lottie: ^1.4.3
+  webview_flutter_web: ^0.1.0+4
+  video_player: ^2.4.7
 
 dev_dependencies:
   flutter_test:

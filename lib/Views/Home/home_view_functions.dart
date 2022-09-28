@@ -14,6 +14,7 @@ class HomeViewFunctions {
         duration: const Duration(milliseconds: AppDurations.dm300),
         curve: Curves.linear);
     value.setAboutCustomFontSize(FontsSize.s20);
+    //await value.upload();
   }
 
   void hoverAboutFunction(HomeViewModel value) {
