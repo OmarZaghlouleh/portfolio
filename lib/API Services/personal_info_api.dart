@@ -12,7 +12,6 @@ class PersonalInfoAPI {
       final response = await http.get(
           Uri.parse("${APIManager.baseUrl}/classes/Info"),
           headers: APIManager.headers);
-      log(response.body);
       if (response.statusCode == 200) {
         return PersonalInfoModel.fromJson(
             jsonDecode(response.body)['results'][0]);

@@ -10,7 +10,6 @@ class ProjectsAPI {
       final response = await http.get(
           Uri.parse("${APIManager.baseUrl}/classes/Projects"),
           headers: APIManager.headers);
-      log(response.body);
       if (response.statusCode == 200) {
         List<ProjectsModel> projects = [];
         final data = jsonDecode(response.body)['results'] as List;

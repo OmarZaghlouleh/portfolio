@@ -14,7 +14,6 @@ class PersonalInfoModel {
   PersonalInfoModel();
 
   PersonalInfoModel.fromJson(Map json) {
-    log(json.toString());
     bio = json['bio'] ?? "";
     likes = json["likes"] ?? 0;
     education = json['education'] ?? "";

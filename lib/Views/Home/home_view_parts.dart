@@ -717,14 +717,15 @@ class HomeDrawer extends StatelessWidget {
                   fontSize: value.getAboutFontSize,
                   onPressed: () => homeViewFunctions.pressAboutFunction(
                       scrollController, value),
-                  onHover: () => homeViewFunctions.hoverAboutFunction(value),
+                  onHover: () => () {},
+                  //homeViewFunctions.hoverAboutFunction(value),
                   title: AppStrings.about),
             ),
             Consumer<HomeViewModel>(
                 builder: (context, value, child) => InkWell(
                     onTap: () {},
                     onHover: (isHovered) {
-                      value.setProjectsFontSize();
+                      //value.setProjectsFontSize();
                     },
                     child: ExpansionTile(
                       collapsedIconColor: ColorsManager.greyColor,
@@ -765,7 +766,8 @@ class HomeDrawer extends StatelessWidget {
                   fontSize: value.getMusicFontSize,
                   onPressed: () => homeViewFunctions.pressMusicFunction(
                       scrollController, value, musicKey),
-                  onHover: () => homeViewFunctions.hoverMusicFunction(value),
+                  onHover: () => () {},
+                  //homeViewFunctions.hoverMusicFunction(value),
                   title: AppStrings.music),
             ),
             Consumer<HomeViewModel>(
@@ -773,7 +775,8 @@ class HomeDrawer extends StatelessWidget {
                   fontSize: value.getContactFontSize,
                   onPressed: () => homeViewFunctions.pressContactFunction(
                       scrollController, value),
-                  onHover: () => homeViewFunctions.hoverContactFunction(value),
+                  onHover: () => () {},
+                  //homeViewFunctions.hoverContactFunction(value),
                   title: AppStrings.contact),
             ),
             Consumer<HomeViewModel>(

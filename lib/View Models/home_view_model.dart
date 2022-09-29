@@ -200,14 +200,11 @@ class HomeViewModel with ChangeNotifier {
 
     if (apiResponse.success && apiResponse.results != null) {
       final data = apiResponse.results!.first['macs'] as List;
-      log("IDs: $data");
       if (!data.contains(macAddress)) {
         var todo = ParseObject('Info')
           ..objectId = AppStrings.infoId
           ..setAdd('macs', macAddress);
         final res = await todo.save();
-
-        log(res.statusCode.toString());
 
         if (res.success) {
           todo = ParseObject('Info')
@@ -243,8 +240,6 @@ class HomeViewModel with ChangeNotifier {
           ..setRemove('macs', macAddress);
         final res = await todo.save();
 
-        log(res.statusCode.toString());
-
         if (res.success) {
           todo = ParseObject('Info')
             ..objectId = AppStrings.infoId
@@ -278,7 +273,6 @@ class HomeViewModel with ChangeNotifier {
     try {
       macAddress =
           await PlatformDeviceId.getDeviceId ?? AppStrings.undefinedError;
-      log("Device ID: $macAddress");
     } on PlatformException {
       macAddress = 'Failed to get mac address.';
     }

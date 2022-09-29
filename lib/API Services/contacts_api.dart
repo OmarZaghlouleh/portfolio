@@ -11,7 +11,6 @@ class ContactsAPI {
       final response = await http.get(
           Uri.parse("${APIManager.baseUrl}/classes/Contacts"),
           headers: APIManager.headers);
-      log(response.body);
       if (response.statusCode == 200) {
         List<ContactModel> contacts = [];
         final data = jsonDecode(response.body)['results'] as List;
