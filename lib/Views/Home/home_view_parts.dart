@@ -863,7 +863,7 @@ class MileJourneyVideo extends StatefulWidget {
 class _MileJourneyVideoState extends State<MileJourneyVideo> {
   late final VideoPlayerController _controller;
   bool _isHovered = true;
-  IconData _icon = Icons.play_arrow_rounded;
+  String _icon = AssetsManager.play;
 
   @override
   void initState() {
@@ -878,11 +878,11 @@ class _MileJourneyVideoState extends State<MileJourneyVideo> {
     _controller.addListener(() {
       if (!_controller.value.isPlaying) {
         setState(() {
-          _icon = Icons.play_arrow_rounded;
+          _icon = AssetsManager.play;
           _isHovered = true;
         });
       } else {
-        _icon = Icons.pause_rounded;
+        _icon = AssetsManager.pause;
       }
     });
 
@@ -939,40 +939,31 @@ class _MileJourneyVideoState extends State<MileJourneyVideo> {
               ],
             ),
             if (_isHovered)
-              SizedBox(
-                height: AppHeights.h500,
-                // aspectRatio: _controller.value.aspectRatio,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: ColorsManager.blackColor
-                        .withOpacity(OpacityValues.op0_3),
-                  ),
-                  //height: AppHeights.h500,
-                  child: Center(
-                    child: IconButton(
-                      onPressed: () {
-                        if (_controller.value.isPlaying) {
-                          _controller.pause();
-                          setState(() {
-                            _isHovered = true;
-                            //_icon = Icons.play_arrow_rounded;
-                          });
-                        } else {
-                          _controller.play();
-                          setState(() {
-                            _isHovered = false;
-                            //_icon = Icons.pause_rounded;
-                          });
-                        }
-                      },
-                      icon: Icon(
+              Center(
+                child: IconButton(
+                    onPressed: () {
+                      if (_controller.value.isPlaying) {
+                        _controller.pause();
+                        setState(() {
+                          _isHovered = true;
+                          //_icon = Icons.play_arrow_rounded;
+                        });
+                      } else {
+                        _controller.play();
+                        setState(() {
+                          _isHovered = false;
+                          //_icon = Icons.pause_rounded;
+                        });
+                      }
+                    },
+                    icon: Image(
+                      image: AssetImage(
                         _icon,
-                        size: AppSize.s20,
-                        color: ColorsManager.primaryColor,
                       ),
-                    ),
-                  ),
-                ),
+                      color: ColorsManager.accentColor,
+                      // width: AppWidth.w300,
+                      // height: AppHeights.h300,
+                    )),
               ),
           ],
         ),

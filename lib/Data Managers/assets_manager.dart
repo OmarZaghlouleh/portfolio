@@ -9,4 +9,6 @@ class AssetsManager {
   static const String facebookIcon = "web/icons/facebook.png";
   static const String instagram = "web/icons/instagram.png";
   static const String whatsapp = "web/icons/whatsapp.png";
+  static const String play = "web/icons/play.png";
+  static const String pause = "web/icons/pause.png";
 }
