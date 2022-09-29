@@ -869,11 +869,11 @@ class _MileJourneyVideoState extends State<MileJourneyVideo> {
   void initState() {
     log("Video");
 
-    _controller = VideoPlayerController.network(
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
-      ..initialize().then((_) {
-        setState(() {});
-      });
+    _controller =
+        VideoPlayerController.network(AppStrings.mileJourneyDataSourceURL)
+          ..initialize().then((_) {
+            setState(() {});
+          });
 
     _controller.addListener(() {
       if (!_controller.value.isPlaying) {
