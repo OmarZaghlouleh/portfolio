@@ -940,7 +940,7 @@ class _MileJourneyVideoState extends State<MileJourneyVideo> {
             ),
             if (_isHovered)
               SizedBox(
-                height: AppHeights.h550,
+                height: AppHeights.h500,
                 // aspectRatio: _controller.value.aspectRatio,
                 child: Container(
                   decoration: BoxDecoration(
