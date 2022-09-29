@@ -338,7 +338,10 @@ class _HomeViewState extends State<HomeView>
         },
         child: Text(
           title,
-          style: Theme.of(context).textTheme.headline2,
+          style: Theme.of(context)
+              .textTheme
+              .labelMedium!
+              .copyWith(color: ColorsManager.greyColor),
         ),
       ),
     );
