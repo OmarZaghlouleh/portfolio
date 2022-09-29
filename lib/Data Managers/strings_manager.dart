@@ -6,9 +6,11 @@ class AppStrings {
       "https://www.youtube.com/watch?v=PTpaErEXFiw";
 
   static const String mileJourney = "Mile Journey";
-  static const String mileJourneyYoutubeUrl = "Youtube URL: ";
+  static const String mileJourneyYoutubeUrl = "Youtube Link: ";
   static const String mileJourneyProject = "Mile Journey Music Project";
   static const String music = "Music";
+  static const String mileJourneyDataSourceURL = "https://eu.backendlessappcontent.com/CF17630D-952B-A5F8-FF8D-93DF55C6BB00/A984AE18-F7C8-4840-ADFC-E99219C7186E/files/Mile+Journey.mp4";
+
 
   static const String infoId = "szDJkW0jJV";
 
@@ -30,10 +32,6 @@ class AppStrings {
   static const String featuresTitle = "Features: ";
   static const String upComingFeaturesTitle = "Upcoming Features: ";
 
-  static String mileJourneyDataSourceURL = "";
 
-  static void setDataSourceUrl(String url) {
-    mileJourneyDataSourceURL = url;
-    print(url);
-  }
+  
 }
