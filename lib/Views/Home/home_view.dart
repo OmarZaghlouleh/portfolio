@@ -321,7 +321,8 @@ class _HomeViewState extends State<HomeView>
 
   Widget _getTitleText({required String title}) {
     return Padding(
-      padding: const EdgeInsets.all(AppPadding.p25),
+      padding: const EdgeInsets.only(
+          top: AppPadding.p25, left: AppPadding.p25, right: AppPadding.p25),
       child: Text(
         title,
         style: Theme.of(context).textTheme.headline2,
