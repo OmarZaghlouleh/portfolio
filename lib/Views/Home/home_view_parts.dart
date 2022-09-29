@@ -932,6 +932,7 @@ class _MileJourneyVideoState extends State<MileJourneyVideo> {
                 ),
                 VideoProgressIndicator(
                   _controller,
+                  padding: EdgeInsets.zero,
                   allowScrubbing: true,
                   colors: const VideoProgressColors(
                       playedColor: ColorsManager.accentColor),
