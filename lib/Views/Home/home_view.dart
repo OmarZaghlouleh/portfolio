@@ -331,7 +331,7 @@ class _HomeViewState extends State<HomeView>
 
   Widget _getLinkText({required String title}) {
     return Padding(
-      padding: const EdgeInsets.all(AppPadding.p25),
+      padding: const EdgeInsets.only(left: AppPadding.p25, top: AppPadding.p4),
       child: InkWell(
         onTap: () {
           launchUrl(Uri.parse(AppStrings.mileJourneyUrl));

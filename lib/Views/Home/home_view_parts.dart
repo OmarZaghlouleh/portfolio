@@ -967,7 +967,7 @@ class _MileJourneyVideoState extends State<MileJourneyVideo> {
                       },
                       icon: Icon(
                         _icon,
-                        size: AppSize.s20,
+                        size: AppSize.s50,
                         color: ColorsManager.primaryColor,
                       ),
                     ),
