@@ -168,11 +168,14 @@ class HomeViewParts {
                         ],
                       )
                     : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const CircleAvatar(
-                            backgroundImage:
-                                AssetImage(AssetsManager.profileImg),
-                            radius: AppSize.s80,
+                         const Center(
+                            child:  CircleAvatar(
+                              backgroundImage:
+                                  AssetImage(AssetsManager.profileImg),
+                              radius: AppSize.s80,
+                            ),
                           ),
                           const SizedBox(
                             height: AppSize.s20,
@@ -564,7 +567,7 @@ class HomeViewParts {
         Expanded(
           child: Text(
             title2,
-            maxLines: 5,
+            maxLines: 10,
             style: Theme.of(_context).textTheme.labelMedium,
           ),
         )
@@ -914,7 +917,12 @@ class _MileJourneyVideoState extends State<MileJourneyVideo> {
       key: widget.musicVisibiltyKey,
       child: InkWell(
         key: widget.widgetKey,
-        onTap: () {},
+        onTap: () {
+          if (_controller.value.isPlaying)
+            setState(() {
+              _isHovered = !_isHovered;
+            });
+        },
         onHover: (hover) {
           if (_controller.value.isPlaying)
             setState(() {
