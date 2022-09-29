@@ -170,8 +170,8 @@ class HomeViewParts {
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                         const Center(
-                            child:  CircleAvatar(
+                          const Center(
+                            child: CircleAvatar(
                               backgroundImage:
                                   AssetImage(AssetsManager.profileImg),
                               radius: AppSize.s80,
@@ -576,24 +576,28 @@ class HomeViewParts {
   }
 
   Widget getContactContent(HomeViewModel value, BuildContext context) {
-    return VisibilityDetector(
-      key: _contactVisibiltyKey,
-      onVisibilityChanged: (info) {
-        if (int.tryParse(info.visibleFraction.toString()) == AppFractions.f1 ||
-            info.visibleFraction > AppFractions.f0_2) {
-          value.setIsContactVisible(true);
-          value.setCustomContactFontSize(FontsSize.s20);
-        } else {
-          value.setIsContactVisible(false);
-          value.setCustomContactFontSize(FontsSize.s15);
-        }
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: value.getContacts
-            .map((e) => _getIconRowItem(
-                url: e.url, icon: Image.asset(e.assetPath), context: context))
-            .toList(),
+    return Padding(
+      padding: const EdgeInsets.all(AppPadding.p8),
+      child: VisibilityDetector(
+        key: _contactVisibiltyKey,
+        onVisibilityChanged: (info) {
+          if (int.tryParse(info.visibleFraction.toString()) ==
+                  AppFractions.f1 ||
+              info.visibleFraction > AppFractions.f0_2) {
+            value.setIsContactVisible(true);
+            value.setCustomContactFontSize(FontsSize.s20);
+          } else {
+            value.setIsContactVisible(false);
+            value.setCustomContactFontSize(FontsSize.s15);
+          }
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: value.getContacts
+              .map((e) => _getIconRowItem(
+                  url: e.url, icon: Image.asset(e.assetPath), context: context))
+              .toList(),
+        ),
       ),
     );
   }
@@ -951,31 +955,38 @@ class _MileJourneyVideoState extends State<MileJourneyVideo> {
               ],
             ),
             if (_isHovered)
-              Center(
-                child: IconButton(
-                    onPressed: () {
-                      if (_controller.value.isPlaying) {
-                        _controller.pause();
-                        setState(() {
-                          _isHovered = true;
-                          //_icon = Icons.play_arrow_rounded;
-                        });
-                      } else {
-                        _controller.play();
-                        setState(() {
-                          _isHovered = false;
-                          //_icon = Icons.pause_rounded;
-                        });
-                      }
-                    },
-                    icon: Image(
-                      image: AssetImage(
-                        _icon,
-                      ),
-                      color: ColorsManager.accentColor,
-                      // width: AppWidth.w300,
-                      // height: AppHeights.h300,
-                    )),
+              Container(
+                width: AppWidth.w75,
+                decoration: BoxDecoration(
+                    color: ColorsManager.blackColor
+                        .withOpacity(OpacityValues.op0_8),
+                    borderRadius: BorderRadius.circular(AppSize.s1000),
+                    border: Border.all(color: ColorsManager.primaryColor)),
+                child: Center(
+                  child: IconButton(
+                      onPressed: () {
+                        if (_controller.value.isPlaying) {
+                          _controller.pause();
+                          setState(() {
+                            _isHovered = true;
+                            //_icon = Icons.play_arrow_rounded;
+                          });
+                        } else {
+                          _controller.play();
+                          setState(() {
+                            _isHovered = false;
+                            //_icon = Icons.pause_rounded;
+                          });
+                        }
+                      },
+                      icon: Image(
+                        width: AppWidth.w100,
+                        image: AssetImage(
+                          _icon,
+                        ),
+                        color: ColorsManager.accentColor,
+                      )),
+                ),
               ),
           ],
         ),

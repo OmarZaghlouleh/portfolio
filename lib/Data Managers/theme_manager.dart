@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/Data%20Managers/colors_manager.dart';
 import 'package:portfolio/Data%20Managers/fonts_manager.dart';
 import 'package:portfolio/Data%20Managers/styles_manager.dart';

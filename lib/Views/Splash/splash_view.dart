@@ -3,6 +3,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/Animations/ripple_animation.dart';
+import 'package:portfolio/Data%20Managers/assets_manager.dart';
 import 'package:portfolio/Data%20Managers/colors_manager.dart';
 import 'package:portfolio/Data%20Managers/routes_manager.dart';
 import 'package:portfolio/Data%20Managers/strings_manager.dart';
@@ -11,6 +12,7 @@ import 'package:portfolio/View%20Models/splash_view_model.dart';
 import 'package:positioned_tap_detector_2/positioned_tap_detector_2.dart';
 import 'package:provider/provider.dart';
 import '../../Data Managers/values_manager.dart';
+import 'package:lottie/lottie.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -97,12 +99,14 @@ class _SplashViewState extends State<SplashView>
                       ),
                     )),
                     const SizedBox(height: AppSize.s10),
-                    Consumer<HomeViewModel>(
-                      builder: (context, value, child) => value.getTextFinished
+                    Consumer2<HomeViewModel, SplashViewModel>(
+                      builder: (context, value, splash, child) => value
+                              .getTextFinished
                           ? AnimatedTextKit(
                               pause:
                                   const Duration(milliseconds: AppDurations.d0),
                               onFinished: () async {
+                                splash.setLoading(true);
                                 await Provider.of<HomeViewModel>(context,
                                         listen: false)
                                     .setPersonalInfo();
@@ -117,6 +121,7 @@ class _SplashViewState extends State<SplashView>
                                         listen: false)
                                     .setProjects()
                                     .then((value) {
+                                  splash.setLoading(false);
                                   Navigator.pushReplacementNamed(
                                       context, RoutesName.home);
                                 });
@@ -135,14 +140,17 @@ class _SplashViewState extends State<SplashView>
                             )
                           : const Text(''),
                     ),
-                    const SizedBox(height: AppSize.s30),
-                    // SizedBox(
-                    //   width: _deviceSize.getQurterWidth,
-                    //   height: AppSize.s1,
-                    //   child: const LinearProgressIndicator(
-                    //     color: ColorsManager.whiteColor,
-                    //   ),
-                    // )
+                    // const SizedBox(height: AppSize.s30),
+                    Consumer<SplashViewModel>(
+                        builder: (context, value, child) => SizedBox(
+                              width: _deviceSize.getQurterWidth,
+                              height: AppSize.s40,
+                              child: value.getLoading
+                                  ? Center(
+                                      child: Lottie.asset(
+                                          AssetsManager.pathLoading))
+                                  : null,
+                            ))
                   ],
                 ),
               ),
