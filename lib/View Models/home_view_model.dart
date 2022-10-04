@@ -23,6 +23,7 @@ class HomeViewModel with ChangeNotifier {
 
   List<ProjectsModel> _projectsModel = [];
   List<String> _projectsName = [];
+  int _likesNumber = 0;
 
   XFile? picked;
 
@@ -45,6 +46,11 @@ class HomeViewModel with ChangeNotifier {
   bool _textFinished = false;
   bool _isProfileContainerHovered = false;
   bool _isDropDownOpened = false;
+
+  void setLikesNumber(int num) {
+    _likesNumber = num;
+    notifyListeners();
+  }
 
   void setLoading(bool value) {
     _isLoading = value;
@@ -189,6 +195,7 @@ class HomeViewModel with ChangeNotifier {
 
   Future<void> setLike() async {
     setIsLiked(true);
+    setLikesNumber(getLikesNumber + 1);
     //setLoading(true);
     String macAddress;
 
@@ -212,7 +219,10 @@ class HomeViewModel with ChangeNotifier {
             ..setIncrement('likes', 1);
           await todo.save();
           final res = await todo.save();
-          if (!res.success) setIsLiked(false);
+          if (!res.success) {
+            setIsLiked(false);
+            setLikesNumber(data.length - 1);
+          }
         }
       }
     }
@@ -220,8 +230,9 @@ class HomeViewModel with ChangeNotifier {
     //setLoading(false);
   }
 
-  Future<void> decLike() async {
+  Future<void> disLike() async {
     setIsLiked(false);
+    setLikesNumber(getLikesNumber - 1);
     //setLoading(true);
     String macAddress;
 
@@ -245,7 +256,10 @@ class HomeViewModel with ChangeNotifier {
             ..objectId = AppStrings.infoId
             ..setIncrement('likes', -1);
           final res = await todo.save();
-          if (!res.success) setIsLiked(true);
+          if (!res.success) {
+            setIsLiked(true);
+            setLikesNumber(data.length + 1);
+          }
         }
       }
     }
@@ -262,6 +276,7 @@ class HomeViewModel with ChangeNotifier {
 
     if (apiResponse.success && apiResponse.results != null) {
       final data = apiResponse.results!.first['macs'] as List;
+      setLikesNumber(data.length);
       if (data.contains(macAddress)) {
         setIsLiked(true);
       }
@@ -292,12 +307,15 @@ class HomeViewModel with ChangeNotifier {
   double get getContactFontSize => _contactFontSize;
   double get getLikeSize => _likeSize;
 
+  int get getLikesNumber => _likesNumber;
+
   bool get getIsProfileVisible => _isProfileVisible;
   bool get getIsPrjectsVisible => _isProfileVisible;
   bool get getIsContactVisible => _isContactVisible;
   bool get getIsMusicVisible => _isContactVisible;
   bool get getTextFinished => _textFinished;
   bool get getIsProfileContainerHovered => _isProfileContainerHovered;
+
   bool get getDropDownStatus => _isDropDownOpened;
   bool get getIsLiked => _isLiked;
   bool get getLoading => _isLoading;

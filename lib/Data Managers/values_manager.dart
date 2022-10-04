@@ -24,6 +24,7 @@ class AppOffset {
 }
 
 class DeviceSize {
+  double maxWidth = 750;
   BuildContext context;
   DeviceSize(this.context);
 
@@ -109,6 +110,7 @@ class AppHeights {
 }
 
 class AppWidth {
+  static const double w5 = 5;
   static const double w10 = 10;
   static const double w15 = 15;
   static const double w20 = 20;

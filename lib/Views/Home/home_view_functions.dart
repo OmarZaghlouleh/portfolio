@@ -48,7 +48,7 @@ class HomeViewFunctions {
     if (increase)
       await value.setLike();
     else
-      await value.decLike();
+      await value.disLike();
   }
 
   void hoverResumeFunction(HomeViewModel value) {

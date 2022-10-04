@@ -14,11 +14,16 @@ import 'package:portfolio/Data%20Managers/strings_manager.dart';
 import 'package:portfolio/Data%20Managers/values_manager.dart';
 import 'package:portfolio/View%20Models/home_view_model.dart';
 import 'package:portfolio/View%20Models/splash_view_model.dart';
+import 'package:portfolio/Views/Home/Sections/contacts_section.dart';
+import 'package:portfolio/Views/Home/Sections/projects_section.dart';
 import 'package:portfolio/Views/Home/home_view_functions.dart';
 import 'package:portfolio/Views/Home/home_view_parts.dart';
 import 'package:positioned_tap_detector_2/positioned_tap_detector_2.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'about_section_view.dart';
+import 'mile_journey_section.dart';
 
 class HomeView extends StatefulWidget {
   HomeView({super.key});
@@ -29,44 +34,23 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView>
     with SingleTickerProviderStateMixin {
-  ScrollController _scrollController = ScrollController();
-  GlobalKey _profileVisibiltyKey = GlobalKey();
-  GlobalKey _projectsVisibiltyKey = GlobalKey();
-  GlobalKey _contactVisibiltyKey = GlobalKey();
-  GlobalKey _musicVisibiltyKey = GlobalKey();
+  final ScrollController _scrollController = ScrollController();
 
-  GlobalKey _popupKey = GlobalKey();
-  GlobalKey _musicKey = GlobalKey();
-
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-
-  PageController _pageController = PageController();
+  final GlobalKey _popupKey = GlobalKey();
+  final GlobalKey _musicKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   late DeviceSize _deviceSize;
-  late HomeViewParts _homeViewParts;
-  late HomeViewFunctions _homeViewFunctions;
+  final HomeViewFunctions _homeViewFunctions = HomeViewFunctions();
 
-  late RippleAnimation _rippleAnimation;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // _rippleAnimation = RippleAnimation(this);
     _deviceSize = DeviceSize(context);
-    _homeViewParts = HomeViewParts(
-        context,
-        _profileVisibiltyKey,
-        _projectsVisibiltyKey,
-        _deviceSize,
-        _pageController,
-        _contactVisibiltyKey,
-        _musicVisibiltyKey);
-    _homeViewFunctions = HomeViewFunctions();
   }
 
   @override
   void dispose() {
-    _rippleAnimation.dispose();
     super.dispose();
   }
 
@@ -96,7 +80,7 @@ class _HomeViewState extends State<HomeView>
                 children: [
                   AnimatedOpacity(
                     duration: const Duration(milliseconds: AppDurations.dm300),
-                    opacity: p1.maxWidth <= 700
+                    opacity: p1.maxWidth <= _deviceSize.maxWidth
                         ? OpacityValues.op1
                         : OpacityValues.op0,
                     child: IconButton(
@@ -147,7 +131,7 @@ class _HomeViewState extends State<HomeView>
                               ),
                             ),
                           )),
-                  if (p1.maxWidth > 700)
+                  if (p1.maxWidth > _deviceSize.maxWidth)
                     Padding(
                       padding: const EdgeInsets.all(AppPadding.p8),
                       child: Row(
@@ -258,12 +242,35 @@ class _HomeViewState extends State<HomeView>
                               onHover: (_) {
                                 _homeViewFunctions.hoverLikeButton(value);
                               },
-                              child: Icon(
-                                value.getIsLiked
-                                    ? Icons.thumb_up_alt_rounded
-                                    : Icons.thumb_up_off_alt_outlined,
-                                color: ColorsManager.whiteColor,
-                                size: value.getLikeSize,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: ColorsManager.blackColor
+                                      .withOpacity(OpacityValues.op0_3),
+                                  borderRadius:
+                                      BorderRadius.circular(AppSize.s15),
+                                ),
+                                padding: const EdgeInsets.all(AppPadding.p8),
+                                margin: const EdgeInsets.all(AppPadding.p8),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      value.getLikesNumber.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall!
+                                          .copyWith(
+                                              color: ColorsManager.whiteColor),
+                                    ),
+                                    const SizedBox(width: AppWidth.w5),
+                                    Icon(
+                                      value.getIsLiked
+                                          ? Icons.thumb_up_alt_rounded
+                                          : Icons.thumb_up_off_alt_outlined,
+                                      color: ColorsManager.whiteColor,
+                                      size: value.getLikeSize,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -284,31 +291,21 @@ class _HomeViewState extends State<HomeView>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    //About Title
                     _getTitleText(title: AppStrings.about),
-                    _homeViewParts.getAboutPart(),
+                    //About
+                    AboutSection(),
+                    //Projects Title
                     _getTitleText(title: AppStrings.flutterProjects),
-                    _homeViewParts.getProjectsPart(),
+                    //Projects
+                    ProjectsSection(),
                     _getTitleText(title: AppStrings.mileJourneyProject),
                     _getLinkText(
                         title: AppStrings.mileJourneyYoutubeUrl +
                             AppStrings.mileJourneyUrl),
-                    Consumer<HomeViewModel>(
-                      builder: (context, value, child) => MileJourneyVideo(
-                        musicVisibiltyKey: _musicVisibiltyKey,
-                        widgetKey: _musicKey,
-                        value: value,
-                      ),
-                    ),
+                    MileJourneyVideo(widgetKey: _musicKey),
                     _getTitleText(title: AppStrings.contact),
-                    Consumer<HomeViewModel>(
-                      builder: (context, value, child) =>
-                          _homeViewParts.getContactContent(value, context),
-                    )
-                    // Column(
-                    //   children:
-                    //       List.generate(150, (index) => const Text("sss"))
-                    //           .toList(),
-                    // )
+                    ContactSection()
                   ],
                 ),
               ),
@@ -340,10 +337,9 @@ class _HomeViewState extends State<HomeView>
         },
         child: Text(
           title,
-          style: Theme.of(context)
-              .textTheme
-              .labelMedium!
-              .copyWith(color: ColorsManager.greyColor),
+          style: Theme.of(context).textTheme.labelMedium!.copyWith(
+              color: ColorsManager.greyColor,
+              decoration: TextDecoration.underline),
         ),
       ),
     );

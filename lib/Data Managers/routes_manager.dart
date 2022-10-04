@@ -4,7 +4,7 @@ import 'package:portfolio/Data%20Managers/colors_manager.dart';
 import 'package:portfolio/Data%20Managers/strings_manager.dart';
 import 'package:portfolio/Views/Splash/splash_view.dart';
 
-import '../Views/Home/home_view.dart';
+import '../Views/Home/Sections/home_view.dart';
 
 class RoutesName {
   static const String splash = '/';
