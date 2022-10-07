@@ -13,6 +13,7 @@ class ProjectsModel {
   List images = [];
   List videos = [];
   List colors = [];
+  String subtitleColor = '';
   GlobalKey key = GlobalKey();
 
   ProjectsModel();
@@ -28,6 +29,7 @@ class ProjectsModel {
     features = json['Features'] ?? [];
     upComingFeatures = json['upComingFeatures'] ?? [];
     colors = json['colors'] ?? [];
+    subtitleColor = json['subtitleColor'] ?? '';
     key = GlobalKey(debugLabel: name);
   }
 }

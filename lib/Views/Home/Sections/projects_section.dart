@@ -382,7 +382,9 @@ class _LandscapeProjectState extends State<LandscapeProject> {
                       padding: const EdgeInsets.all(AppPadding.p4),
                       child: Text(
                         widget.e.description,
-                        style: Theme.of(context).textTheme.subtitle2,
+                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                            color: Color(int.tryParse(widget.e.subtitleColor) ??
+                                0xFFFFFFFF)),
                       ),
                     ),
                     const SizedBox(height: AppHeights.h20),
