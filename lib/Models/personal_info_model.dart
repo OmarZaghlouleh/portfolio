@@ -10,6 +10,7 @@ class PersonalInfoModel {
   String location = "";
   String phoneNumber = "";
   String email = "";
+  String imageUrl = '';
 
   PersonalInfoModel();
 
@@ -20,5 +21,6 @@ class PersonalInfoModel {
     location = json['location'] ?? "";
     phoneNumber = json['phoneNumber'] ?? "";
     email = json['email'] ?? "";
+    imageUrl = json['imageUrl'] ?? '';
   }
 }

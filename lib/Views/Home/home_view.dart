@@ -22,8 +22,8 @@ import 'package:positioned_tap_detector_2/positioned_tap_detector_2.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'about_section_view.dart';
-import 'mile_journey_section.dart';
+import 'Sections/about_section_view.dart';
+import 'Sections/mile_journey_section.dart';
 
 class HomeView extends StatefulWidget {
   HomeView({super.key});
@@ -113,9 +113,9 @@ class _HomeViewState extends State<HomeView>
                                         seconds: AppDurations.ds1),
                                     duration: const Duration(
                                         seconds: AppDurations.ds2),
-                                    child: const CircleAvatar(
-                                      backgroundImage:
-                                          AssetImage(AssetsManager.profileImg),
+                                    child: CircleAvatar(
+                                      backgroundImage: NetworkImage(
+                                          value.getPersonalInfo.imageUrl),
                                     ),
                                   ),
                                   const SizedBox(

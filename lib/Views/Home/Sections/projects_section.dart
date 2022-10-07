@@ -160,6 +160,8 @@ class _ProtraitProjectState extends State<ProtraitProject> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      splashColor: ColorsManager.transarentColor,
+      highlightColor: ColorsManager.transarentColor,
       onTap: () {},
       onHover: (hover) {
         setState(() {
@@ -317,6 +319,8 @@ class _LandscapeProjectState extends State<LandscapeProject> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      splashColor: ColorsManager.transarentColor,
+      highlightColor: ColorsManager.transarentColor,
       onTap: () {},
       onHover: (hover) {
         setState(() {

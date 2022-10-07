@@ -4,6 +4,8 @@ class AppStrings {
   static const String mileJourneyId = "PTpaErEXFiw";
   static const String mileJourneyUrl =
       "https://www.youtube.com/watch?v=PTpaErEXFiw";
+  static const String mileJourneyThumbnailUrl =
+      'https://i.imgur.com/3pG4CFj.jpg';
 
   static const String mileJourney = "Mile Journey";
   static const String mileJourneyYoutubeUrl = "Youtube Link: ";

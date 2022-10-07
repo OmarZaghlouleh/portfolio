@@ -112,9 +112,9 @@ class AboutSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Center(
+        Center(
           child: CircleAvatar(
-            backgroundImage: AssetImage(AssetsManager.profileImg),
+            backgroundImage: NetworkImage(value.getPersonalInfo.imageUrl),
             radius: AppSize.s80,
           ),
         ),

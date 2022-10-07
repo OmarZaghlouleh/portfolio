@@ -22,6 +22,11 @@ class _MileJourneyVideoState extends State<MileJourneyVideo> {
   late final VideoPlayerController _controller;
   bool _isHovered = true;
   String _icon = AssetsManager.play;
+  bool _isInit = false;
+  void setInit() {
+    _isInit = true;
+    setState(() {});
+  }
 
   @override
   void initState() {
@@ -35,7 +40,9 @@ class _MileJourneyVideoState extends State<MileJourneyVideo> {
           _isHovered = true;
         });
       } else {
-        _icon = AssetsManager.pause;
+        setState(() {
+          _icon = AssetsManager.pause;
+        });
       }
     });
 
@@ -66,14 +73,10 @@ class _MileJourneyVideoState extends State<MileJourneyVideo> {
         key: widget._musicVisibiltyKey,
         child: LayoutBuilder(builder: (p0, p1) {
           return InkWell(
+            splashColor: ColorsManager.transarentColor,
+            highlightColor: ColorsManager.transarentColor,
             key: widget.widgetKey,
-            onTap: () {
-              if (_controller.value.isPlaying) {
-                setState(() {
-                  _isHovered = !_isHovered;
-                });
-              }
-            },
+            onTap: () {},
             onHover: (hover) {
               if (_controller.value.isPlaying) {
                 setState(() {
@@ -89,39 +92,58 @@ class _MileJourneyVideoState extends State<MileJourneyVideo> {
                     SizedBox(
                       height: AppHeights.h500,
                       // aspectRatio: _controller.value.aspectRatio,
-                      child: VideoPlayer(
-                        _controller,
-                      ),
+                      child: _isInit
+                          ? VideoPlayer(
+                              _controller,
+                            )
+                          : const Image(
+                              image: NetworkImage(
+                                  AppStrings.mileJourneyThumbnailUrl)),
                     ),
                     Row(
                       children: [
-                        if (p1.maxWidth < 500)
-                          IconButton(
-                              onPressed: () {
-                                if (!_controller.value.isInitialized) {
-                                  _controller.initialize().then((_) {
-                                    setState(() {});
+                        IconButton(
+                            onPressed: () {
+                              if (!_controller.value.isInitialized) {
+                                _controller.initialize().then((_) {
+                                  setInit();
+                                });
+                                if (_controller.value.isPlaying) {
+                                  _controller.pause();
+                                  setState(() {
+                                    _isHovered = true;
+                                    //_icon = Icons.play_arrow_rounded;
                                   });
-                                  if (_controller.value.isPlaying) {
-                                    _controller.pause();
-                                  } else {
-                                    _controller.play();
-                                  }
                                 } else {
-                                  if (_controller.value.isPlaying) {
-                                    _controller.pause();
-                                  } else {
-                                    _controller.play();
-                                  }
+                                  _controller.play();
+                                  setState(() {
+                                    _isHovered = false;
+                                    //_icon = Icons.pause_rounded;
+                                  });
                                 }
-                              },
-                              icon: Image(
-                                width: AppWidth.w30,
-                                image: AssetImage(
-                                  _icon,
-                                ),
-                                color: ColorsManager.accentColor,
-                              )),
+                              } else {
+                                if (_controller.value.isPlaying) {
+                                  _controller.pause();
+                                  setState(() {
+                                    _isHovered = true;
+                                    //_icon = Icons.play_arrow_rounded;
+                                  });
+                                } else {
+                                  _controller.play();
+                                  setState(() {
+                                    _isHovered = false;
+                                    //_icon = Icons.pause_rounded;
+                                  });
+                                }
+                              }
+                            },
+                            icon: Image(
+                              width: AppWidth.w30,
+                              image: AssetImage(
+                                _icon,
+                              ),
+                              color: ColorsManager.accentColor,
+                            )),
                         Expanded(
                           child: VideoProgressIndicator(
                             _controller,
@@ -148,7 +170,7 @@ class _MileJourneyVideoState extends State<MileJourneyVideo> {
                           onPressed: () {
                             if (!_controller.value.isInitialized) {
                               _controller.initialize().then((_) {
-                                setState(() {});
+                                setInit();
                               });
                               if (_controller.value.isPlaying) {
                                 _controller.pause();

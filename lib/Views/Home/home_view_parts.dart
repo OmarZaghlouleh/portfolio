@@ -113,24 +113,43 @@ class HomeDrawer extends StatelessWidget {
             ),
             Consumer<HomeViewModel>(
               builder: (context, value, child) => Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(AppPadding.p8),
-                  child: InkWell(
-                    onTap: () async {
-                      if (!value.getIsLiked)
-                        await homeViewFunctions.pressLikeButton(value, true);
-                      else
-                        await homeViewFunctions.pressLikeButton(value, false);
-                    },
-                    onHover: (_) {
-                      homeViewFunctions.hoverLikeButton(value);
-                    },
-                    child: Icon(
-                      value.getIsLiked
-                          ? Icons.thumb_up_alt_rounded
-                          : Icons.thumb_up_off_alt_outlined,
-                      color: ColorsManager.whiteColor,
-                      size: value.getLikeSize,
+                child: InkWell(
+                  onTap: () async {
+                    if (!value.getIsLiked)
+                      await homeViewFunctions.pressLikeButton(value, true);
+                    else
+                      await homeViewFunctions.pressLikeButton(value, false);
+                  },
+                  onHover: (_) {
+                    homeViewFunctions.hoverLikeButton(value);
+                  },
+                  child: Container(
+                    width: AppWidth.w55,
+                    decoration: BoxDecoration(
+                      color: ColorsManager.blackColor
+                          .withOpacity(OpacityValues.op0_3),
+                      borderRadius: BorderRadius.circular(AppSize.s15),
+                    ),
+                    padding: const EdgeInsets.all(AppPadding.p8),
+                    margin: const EdgeInsets.all(AppPadding.p8),
+                    child: Row(
+                      children: [
+                        Text(
+                          value.getLikesNumber.toString(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelSmall!
+                              .copyWith(color: ColorsManager.whiteColor),
+                        ),
+                        const SizedBox(width: AppWidth.w5),
+                        Icon(
+                          value.getIsLiked
+                              ? Icons.thumb_up_alt_rounded
+                              : Icons.thumb_up_off_alt_outlined,
+                          color: ColorsManager.whiteColor,
+                          size: value.getLikeSize,
+                        ),
+                      ],
                     ),
                   ),
                 ),
