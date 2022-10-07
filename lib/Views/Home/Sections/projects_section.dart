@@ -219,15 +219,24 @@ class _ProtraitProjectState extends State<ProtraitProject> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.e.name,
-                        style: Theme.of(context).textTheme.headline2,
+                      Padding(
+                        padding: const EdgeInsets.only(top: AppPadding.p8),
+                        child: Text(
+                          widget.e.name,
+                          style: Theme.of(context).textTheme.headline2,
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(AppPadding.p4),
                         child: Text(
                           widget.e.description,
-                          style: Theme.of(context).textTheme.subtitle2,
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle2!
+                              .copyWith(
+                                  color: Color(
+                                      int.tryParse(widget.e.subtitleColor) ??
+                                          0xFFFFFFFF)),
                         ),
                       ),
                       const SizedBox(height: AppHeights.h20),
@@ -242,10 +251,12 @@ class _ProtraitProjectState extends State<ProtraitProject> {
                                   padding: const EdgeInsets.all(AppPadding.p8),
                                   child: Row(
                                     children: [
-                                      const Icon(
+                                      Icon(
                                         Icons.circle,
                                         size: AppSize.s10,
-                                        color: ColorsManager.greyColor,
+                                        color: Color(int.tryParse(
+                                                widget.e.subtitleColor) ??
+                                            0xFFFFFFFF),
                                       ),
                                       const SizedBox(width: AppWidth.w10),
                                       Expanded(
@@ -272,10 +283,12 @@ class _ProtraitProjectState extends State<ProtraitProject> {
                                   padding: const EdgeInsets.all(AppPadding.p8),
                                   child: Row(
                                     children: [
-                                      const Icon(
+                                      Icon(
                                         Icons.circle,
                                         size: AppSize.s10,
-                                        color: ColorsManager.greyColor,
+                                        color: Color(int.tryParse(
+                                                widget.e.subtitleColor) ??
+                                            0xFFFFFFFF),
                                       ),
                                       const SizedBox(width: AppWidth.w10),
                                       Expanded(
@@ -374,9 +387,12 @@ class _LandscapeProjectState extends State<LandscapeProject> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      widget.e.name,
-                      style: Theme.of(context).textTheme.headline2,
+                    Padding(
+                      padding: const EdgeInsets.only(top: AppPadding.p8),
+                      child: Text(
+                        widget.e.name,
+                        style: Theme.of(context).textTheme.headline2,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(AppPadding.p4),
@@ -399,10 +415,12 @@ class _LandscapeProjectState extends State<LandscapeProject> {
                                 padding: const EdgeInsets.all(AppPadding.p8),
                                 child: Row(
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       Icons.circle,
                                       size: AppSize.s10,
-                                      color: ColorsManager.greyColor,
+                                      color: Color(int.tryParse(
+                                              widget.e.subtitleColor) ??
+                                          0xFFFFFFFF),
                                     ),
                                     const SizedBox(width: AppWidth.w10),
                                     Expanded(
@@ -429,10 +447,12 @@ class _LandscapeProjectState extends State<LandscapeProject> {
                                 padding: const EdgeInsets.all(AppPadding.p8),
                                 child: Row(
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       Icons.circle,
                                       size: AppSize.s10,
-                                      color: ColorsManager.greyColor,
+                                      color: Color(int.tryParse(
+                                              widget.e.subtitleColor) ??
+                                          0xFFFFFFFF),
                                     ),
                                     const SizedBox(width: AppWidth.w10),
                                     Expanded(
