@@ -175,8 +175,8 @@ class AboutSection extends StatelessWidget {
       {required BuildContext context, required HomeViewModel value}) {
     return Row(
       children: [
-        const CircleAvatar(
-          backgroundImage: AssetImage(AssetsManager.profileImg),
+        CircleAvatar(
+          backgroundImage: NetworkImage(value.getPersonalInfo.imageUrl),
           radius: AppSize.s80,
         ),
         const SizedBox(
