@@ -12,7 +12,7 @@ class AppStrings {
   static const String mileJourneyProject = "Mile Journey Music Project";
   static const String music = "Music";
   static const String mileJourneyDataSourceURL =
-      "https://eu.backendlessappcontent.com/CF17630D-952B-A5F8-FF8D-93DF55C6BB00/A984AE18-F7C8-4840-ADFC-E99219C7186E/files/OZ_-_Mile_Journey%28720P_HD%29%5B1%5D.mp4";
+      "https://eu.backendlessappcontent.com/CF17630D-952B-A5F8-FF8D-93DF55C6BB00/console/ilbpggfoiywxhgkuhhwbsnfqonabrmipoona/files/view/OZ_-_Mile_Journey(720P_HD)%5B1%5D.mp4";
 
   static const String infoId = "szDJkW0jJV";
 
